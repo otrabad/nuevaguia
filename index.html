@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Guías de Transfusión de Plaquetas 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flow-box {
+            border: 2px solid #0a9396;
+            background-color: #ffffff;
+            color: #001219;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .flow-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .flow-arrow {
+            color: #0a9396;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .flow-line {
+            width: 2px;
+            background-color: #0a9396;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #0a9396;
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: scale(1.03);
+        }
+        .stat-icon {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-12 md:mb-16">
+            <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#005f73] to-[#0a9396]">Guías de Transfusión de Plaquetas 2025</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Un cambio de paradigma hacia estrategias <span class="font-bold text-[#005f73]">restrictivas</span> basadas en la evidencia para mejorar la seguridad del paciente y optimizar los recursos.</p>
+        </header>
+
+        <main>
+            <section id="overview" class="mb-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <h2 class="text-3xl font-bold text-[#005f73] mb-4">¿Por qué un Enfoque Restrictivo?</h2>
+                        <p class="mb-4 text-gray-700">La evidencia consolidada de 21 ensayos aleatorizados y 13 estudios observacionales demuestra que las estrategias de transfusión restrictivas (usar menos plaquetas) son tan seguras como las liberales. No se encontraron aumentos significativos en la mortalidad o el sangrado.</p>
+                        <p class="font-semibold text-gray-800">Esta guía aboga por un uso más prudente de las plaquetas, minimizando la exposición innecesaria del paciente, mitigando la escasez y reduciendo los costos de atención médica.</p>
+                    </div>
+                    <div class="chart-container max-w-md mx-auto h-72 md:h-80">
+                        <canvas id="recommendationTypeChart"></canvas>
+                        <p class="text-center text-sm text-gray-500 mt-2">Distribución de la Fuerza de las Recomendaciones</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="risks" class="mb-16 bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold text-center text-[#005f73] mb-2">Riesgos de la Transfusión de Plaquetas</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Aunque salvan vidas, las transfusiones no están exentas de riesgos. Adoptar estrategias restrictivas ayuda a minimizar la exposición a estos eventos adversos.</p>
+                 <div class="chart-container max-w-4xl mx-auto h-96">
+                    <canvas id="risksChart"></canvas>
+                </div>
+            </section>
+
+            <section id="strong-recommendations" class="mb-16">
+                <h2 class="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-[#0a9396] to-[#94d2bd] mb-8">Recomendaciones Fuertes <span class="text-sm align-middle">(Alta/Moderada Certeza)</span></h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="stat-card">
+                        <div class="stat-icon text-[#0a9396]">🩸</div>
+                        <h3 class="font-bold text-lg my-2">Trombocitopenia Hipoproliferativa</h3>
+                        <p class="text-sm text-gray-600 mb-3">En pacientes no sangrantes con quimioterapia o trasplante alogénico.</p>
+                        <p class="text-4xl font-black text-[#005f73]">&lt;10<span class="text-2xl font-bold">k/μL</span></p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon text-[#94d2bd]">👶</div>
+                        <h3 class="font-bold text-lg my-2">Neonatos Prematuros</h3>
+                        <p class="text-sm text-gray-600 mb-3">En neonatos sin hemorragia mayor.</p>
+                        <p class="text-4xl font-black text-[#005f73]">&lt;25<span class="text-2xl font-bold">k/μL</span></p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon text-[#ee9b00]">🧠</div>
+                        <h3 class="font-bold text-lg my-2">Punción Lumbar</h3>
+                        <p class="text-sm text-gray-600 mb-3">Para reducir el riesgo extremadamente bajo de hematoma espinal.</p>
+                        <p class="text-4xl font-black text-[#005f73]">&lt;20<span class="text-2xl font-bold">k/μL</span></p>
+                    </div>
+                    <div class="stat-card" style="border-left-color: #ae2012;">
+                        <div class="stat-icon text-[#ae2012]">🦟</div>
+                        <h3 class="font-bold text-lg my-2">Dengue</h3>
+                        <p class="text-sm text-gray-600 mb-3">En ausencia de hemorragia mayor, no se ha demostrado beneficio.</p>
+                        <p class="text-2xl font-black text-[#9b2226]">NO Transfundir</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="conditional-recommendations" class="mb-16">
+                <h2 class="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-[#ca6702] to-[#ee9b00] mb-8">Recomendaciones Condicionales <span class="text-sm align-middle">(Baja/Muy Baja Certeza)</span></h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                         <div class="stat-card" style="border-left-color: #ca6702;">
+                            <h3 class="font-bold text-lg">Trombocitopenia Hipoproliferativa (Adultos)</h3>
+                            <p class="text-sm text-gray-600">Para trasplante autólogo de CM o anemia aplásica, se valora la calidad de vida sobre la profilaxis.</p>
+                            <p class="text-xl font-bold text-[#bb3e03] mt-2">Recomendar estrategia SIN profilaxis</p>
+                        </div>
+                         <div class="stat-card" style="border-left-color: #ca6702;">
+                            <h3 class="font-bold text-lg">Enfermedad Crítica (Adultos, no Dengue)</h3>
+                            <p class="text-sm text-gray-600">Para trombocitopenia consuntiva sin hemorragia mayor.</p>
+                            <p class="text-xl font-bold text-[#bb3e03] mt-2">Umbral de transfusión: &lt;10k/μL</p>
+                        </div>
+                         <div class="stat-card" style="border-left-color: #ae2012;">
+                            <h3 class="font-bold text-lg">Hemorragia Intracraneal No Operativa</h3>
+                            <p class="text-sm text-gray-600">En pacientes con recuento >100k/μL (incluso con antiplaquetarios), la transfusión puede ser perjudicial.</p>
+                            <p class="text-xl font-bold text-[#9b2226] mt-2">NO Transfundir</p>
+                        </div>
+                         <div class="stat-card" style="border-left-color: #ae2012;">
+                            <h3 class="font-bold text-lg">Cirugía Cardiovascular</h3>
+                            <p class="text-sm text-gray-600">En pacientes no trombocitopénicos sin hemorragia mayor.</p>
+                            <p class="text-xl font-bold text-[#9b2226] mt-2">NO Transfundir</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold text-center text-[#005f73] mb-4">Umbrales para Procedimientos Invasivos</h3>
+                        <p class="text-center text-sm text-gray-500 mb-6">Los umbrales varían según el riesgo de sangrado del procedimiento.</p>
+                        <div class="chart-container max-w-xl mx-auto h-80">
+                           <canvas id="proceduresChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="flowchart" class="mb-16">
+                 <h2 class="text-3xl font-bold text-center text-[#005f73] mb-8">Guía de Decisión Clínica Simplificada</h2>
+                 <div class="flex flex-col items-center">
+                    <div class="flow-box w-full max-w-sm">
+                        <p class="font-bold">Paciente con trombocitopenia</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-box w-full max-w-sm">
+                        <p class="font-semibold">¿Hay sangrado activo y mayor?</p>
+                    </div>
+                    <div class="flex w-full max-w-2xl justify-around my-4">
+                        <div class="flex items-center">
+                            <span class="text-green-600 font-bold mr-2">NO</span><div class="flow-arrow">→</div>
+                        </div>
+                        <div class="flex items-center">
+                           <div class="flow-arrow">←</div><span class="text-red-600 font-bold ml-2">SÍ</span>
+                        </div>
+                    </div>
+                    <div class="flex w-full max-w-4xl justify-between">
+                        <div class="w-5/12 flex flex-col items-center">
+                            <div class="flow-box w-full">
+                                <p class="font-semibold">Evaluar contexto clínico y umbral específico</p>
+                                <p class="text-xs mt-1">(Cirugía, Punción Lumbar, Neonato, etc.)</p>
+                            </div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-box w-full">
+                                <p>Aplicar recomendación de la guía (fuerte o condicional)</p>
+                            </div>
+                        </div>
+                        <div class="flow-line h-auto"></div>
+                         <div class="w-5/12 flex flex-col items-center">
+                             <div class="flow-box w-full bg-red-100 border-red-500">
+                                <p>Las guías de transfusión profiláctica no aplican. Proceder con manejo de hemorragia y transfusión terapéutica según el juicio clínico.</p>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+            
+        </main>
+
+        <footer class="text-center mt-16 pt-8 border-t border-gray-300">
+            <h3 class="font-bold text-xl text-[#005f73] mb-4">Declaración de Buena Práctica</h3>
+            <p class="max-w-3xl mx-auto text-gray-600">Estas recomendaciones son una guía. La decisión final de transfundir siempre debe considerar el contexto clínico completo, los síntomas, el historial del paciente, los medicamentos y, fundamentalmente, los valores y preferencias del paciente.</p>
+            <p class="text-xs text-gray-400 mt-8">Fuente: JAMA | Special Communication - 2025 AABB and ICTMG International Clinical Practice Guidelines on Platelet Transfusion. Publicado online el 29 de Mayo, 2025.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+
+            const wrapLabel = (label, maxLength = 16) => {
+                if (label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).length > maxLength && currentLine.length > 0) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                if (currentLine) {
+                    lines.push(currentLine);
+                }
+                return lines;
+            };
+
+            const brilliantBlues = {
+                darkBlue: '#005f73',
+                teal: '#0a9396',
+                aqua: '#94d2bd',
+                sand: '#e9d8a6',
+                orange: '#ee9b00',
+                darkOrange: '#ca6702',
+                burntSienna: '#bb3e03',
+                darkRed: '#ae2012',
+                maroon: '#9b2226'
+            };
+            
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.color = '#374151';
+
+            const recommendationTypeCtx = document.getElementById('recommendationTypeChart').getContext('2d');
+            new Chart(recommendationTypeCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Recomendaciones Fuertes', 'Recomendaciones Condicionales'],
+                    datasets: [{
+                        label: 'Tipo de Recomendación',
+                        data: [4, 7], 
+                        backgroundColor: [brilliantBlues.teal, brilliantBlues.orange],
+                        borderColor: ['#ffffff'],
+                        borderWidth: 4,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14,
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: { title: tooltipTitleCallback }
+                        }
+                    }
+                }
+            });
+
+            const risksCtx = document.getElementById('risksChart').getContext('2d');
+            new Chart(risksCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        wrapLabel('Alérgica'), 
+                        wrapLabel('Febril no hemolítica'), 
+                        wrapLabel('Séptica'), 
+                        wrapLabel('Sobrecarga circulatoria (TACO)'), 
+                        wrapLabel('Lesión pulmonar aguda (TRALI)')
+                    ],
+                    datasets: [{
+                        label: 'Eventos por 1000 unidades transfundidas',
+                        data: [30, 1, 0.1, 2.6, 0.03],
+                        backgroundColor: [
+                            brilliantBlues.aqua, 
+                            brilliantBlues.sand, 
+                            brilliantBlues.darkRed, 
+                            brilliantBlues.darkOrange, 
+                            brilliantBlues.maroon
+                        ],
+                        borderColor: 'rgba(255, 255, 255, 0)',
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: 'Tasa por 1000 unidades (Escala Logarítmica)',
+                                font: { weight: 'bold' }
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback,
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += context.parsed.x;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const proceduresCtx = document.getElementById('proceduresChart').getContext('2d');
+            new Chart(proceduresCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        wrapLabel('Catéter Venoso Central (compresible)'),
+                        wrapLabel('Radiología Intervencionista (bajo riesgo)'),
+                        wrapLabel('Cirugía Mayor (no neuroaxial)'),
+                        wrapLabel('Radiología Intervencionista (alto riesgo)')
+                    ],
+                    datasets: [{
+                        label: 'Umbral de Plaquetas (x10³/μL)',
+                        data: [10, 20, 50, 50],
+                        backgroundColor: [brilliantBlues.teal, brilliantBlues.aqua, brilliantBlues.orange, brilliantBlues.darkOrange],
+                        borderWidth: 0,
+                        borderRadius: 5,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                     scales: {
+                        y: {
+                           grid: { display: false }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Recuento de Plaquetas (x10³/μL)',
+                                font: { weight: 'bold' }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: { title: tooltipTitleCallback }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
